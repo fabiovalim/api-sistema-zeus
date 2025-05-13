@@ -15,7 +15,7 @@ module.exports = {
         allowNull: false,
         unique: true,
         references: {
-          model: 'Users', // nome da tabela referenciada
+          model: 'Users',
           key: 'id'
         },
         onUpdate: 'CASCADE',
