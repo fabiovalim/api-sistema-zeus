@@ -16,7 +16,8 @@ class Users extends Model {
                 password: Sequelize.VIRTUAL
             },  
             {
-                sequelize
+                sequelize,
+                timestamps: false
             }
         )
 

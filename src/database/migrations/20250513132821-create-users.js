@@ -24,7 +24,6 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-        allowNull: false
       },
       position: {
         type: Sequelize.STRING
@@ -37,10 +36,6 @@ module.exports = {
       },
       skill: {
         type: Sequelize.STRING
-      },
-      entry_date: {
-        type: Sequelize.DATE,
-        allowNull: false
       },
       password_hash: {
         type: Sequelize.STRING
