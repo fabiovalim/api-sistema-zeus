@@ -9,5 +9,6 @@ routes.get('/health', (req, res) => {return res.send({message: `Connected with s
 
 routes.post('/user', schemaValidator(UserSchema), UserController.create);
 routes.put('/user/:id', UserController.update);
+routes.delete('/user/:id', UserController.delete);
 
 module.exports = routes;
