@@ -1,6 +1,24 @@
 const Budgets = require('../models/Budgets');
 
 class BudgetController {
+    async getBudget(req, res) {
+        const budget = await Budgets.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if(!budget) {
+            return res.status(400).json({ message: 'Budget not exists...' });
+        }
+
+        const { name, description, user_id, client, estimated_value, predicted_cost, status } = budget;
+
+        return res.status(200).json({
+            user_id, name, description, client, estimated_value, predicted_cost, status
+        });
+    }
+    
     async create(req, res) {
         const {
             name,
