@@ -11,6 +11,7 @@ class Users extends Model {
                 image: Sequelize.STRING,
                 position: Sequelize.STRING,
                 phone:  Sequelize.STRING,
+                gender: Sequelize.STRING,
                 skill:  Sequelize.STRING,
                 password_hash: Sequelize.STRING,
                 password: Sequelize.VIRTUAL

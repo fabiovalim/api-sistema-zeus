@@ -21,6 +21,71 @@ class UserController {
 
         return res.send({ message: 'User created with sucess!' });
     };
+
+    async update(req, res) {
+        const {
+            name,
+            entry_date,
+            image,
+            gender,
+            phone,
+            skill,
+            old_password,
+            new_password,
+            confirm_new_password
+        } = req.body;
+
+        const user = await Users.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if(!user) {
+            return res.status(400).json({ message: 'User not exists...' });
+        }
+
+        let encryptedPassword = '';
+
+        if(old_password) {
+            if(!await user.checkPassword(old_password)) {
+                return res.status(401).json({ error: 'Old password does not match...' });
+            }
+
+            if(!new_password || !confirm_new_password) {
+                return res.status(401).json({
+                    error: 'We need a new password and confirm new_password attributes...' 
+                });
+            }
+
+            if(new_password !== confirm_new_password) {
+                return res.status(401).json({
+                    error: 'New password and confirm new password does not match...'
+                });
+            }
+
+            encryptedPassword = await bcryptjs.hash(new_password, 8); 
+        }
+
+        await Users.update (
+            {
+                name: name || user.name,
+                entry_date: entry_date || user.entry_date,
+                gender: gender || user.gender,
+                image: image || user.image,
+                phone: phone || user.phone,
+                skill: skill || user.skill,
+                password_hash: encryptedPassword || user.password_hash
+            },
+            {
+                where: {
+                    id: user.id
+                }
+            }
+        );
+
+        return res.status(200).json({ message: 'User updated...' });
+    }
 };
 
 module.exports = new UserController();

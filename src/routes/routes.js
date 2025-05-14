@@ -8,5 +8,6 @@ const routes = new Router();
 routes.get('/health', (req, res) => {return res.send({message: `Connected with success...`})});
 
 routes.post('/user', schemaValidator(UserSchema), UserController.create);
+routes.put('/user/:id', UserController.update);
 
 module.exports = routes;
