@@ -25,6 +25,46 @@ class BudgetController {
 
         return res.status(200).json({ budget: newBudget });
     }
+
+    async update(req, res) {
+        const { id } = req.params;
+        const { name, description, estimated_value, predicted_cost, status } = req.body;
+
+        const verifyBudget = await Budgets.findOne({
+            where: {
+                id
+            }
+        });
+        
+        if(!verifyBudget) {
+            return res.status(404).json({ message: 'Budget does not exists...' });
+        }
+
+        // if(verifyBudget.author_id != req.userId) { AUTHENTICATION
+        //     return res.status(401).json({ message: `You don't have permission to update this budget...` });
+        // }
+
+        await Budgets.update (
+            {   
+                name: name || verifyBudget.name,
+                description: description || verifyBudget.description,
+                estimated_value: estimated_value || verifyBudget.estimated_value,
+                predicted_cost: predicted_cost || verifyBudget.predicted_cost,
+                status: status || verifyBudget.status
+            },
+            {
+                where: {
+                    id: verifyBudget.id
+                }
+            }
+        );
+
+        if(!Budgets.update) {
+            res.status(400).json({ message: 'Failed to update this budget...' });
+        }
+
+        return res.status(200).json({ message: 'Budget updated!' });
+    }
 };
 
 module.exports = new BudgetController();

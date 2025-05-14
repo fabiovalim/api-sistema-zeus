@@ -15,5 +15,6 @@ routes.put('/user/:id', UserController.update);
 routes.delete('/user/:id', UserController.delete);
 
 routes.post('/budgets/:id', schemaValidator(BudgetSchema), BudgetController.create);
+routes.put('/budgets/:id', BudgetController.update);
 
 module.exports = routes;
