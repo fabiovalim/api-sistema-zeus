@@ -2,6 +2,24 @@ const bcryptjs = require('bcryptjs');
 const Users = require('../models/Users');
 
 class UserController {
+    async getUser(req, res) {
+        const user = await Users.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if(!user) {
+            return res.status(400).json({ message: 'User not exists...' });
+        }
+
+        const { name, email, position, phone } = user;
+
+        return res.status(200).json({
+            name, email, phone, position 
+        });
+    }
+
     async create(req, res) {
         const verifyUser = await Users.findOne({
             where: {
