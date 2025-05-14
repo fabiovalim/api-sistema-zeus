@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 const databaseConfig = require('../config/db');
 const Users = require('../apps/models/Users');
+const Budgets = require('../apps/models/Budgets');
 
-const models = [Users];
+const models = [Users, Budgets];
 
 class Database {
     constructor() {

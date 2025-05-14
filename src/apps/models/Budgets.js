@@ -14,7 +14,8 @@ class Budgets extends Model {
                 status: Sequelize.STRING,
             },
             {
-                sequelize
+                sequelize,
+                timestamps: true
             }
         );
         
@@ -22,7 +23,7 @@ class Budgets extends Model {
     }
 
     static associate(models) {
-        this.belongTo(models.Users, {foreignKey: 'user_id', as: 'user'});
+        this.belongsTo(models.Users, {foreignKey: 'user_id', as: 'user'});
     }
 }
 

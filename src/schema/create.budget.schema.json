@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "CreateBudgetSchema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "client": {
+            "type": "string"
+        },
+        "estimated_value": {
+            "type": "string"
+        },
+        "predicted_cost": {
+            "type": "string"
+        }
+    },
+    "required": ["name","description","client","estimated_value","predicted_cost"]
+}
