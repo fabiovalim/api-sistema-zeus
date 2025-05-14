@@ -65,6 +65,36 @@ class BudgetController {
 
         return res.status(200).json({ message: 'Budget updated!' });
     }
+
+    async delete(req, res) {
+        const { id } = req.params;
+
+        const verifyBudget = await Budgets.findOne({
+            where: {
+                id
+            }
+        });
+
+        if(!verifyBudget) {
+            return res.status(404).json({ message: 'Budget does not exists...' });
+        }
+
+        // if(verifyBudget.author_id != req.userId) { // AUTHENTICATION
+        //     return res.status(401).json({ message: `You don't have permission to delete this Budget...` });
+        // }
+
+        const deletedBudget = await Budgets.destroy({
+            where: {
+                id
+            }
+        });
+
+        if(!deletedBudget) {
+            return res.status(400).json({ message: 'Failed to delete this Budget...' });
+        }
+
+        return res.status(200).json({ message: 'Budget deleted...' });
+    }
 };
 
 module.exports = new BudgetController();
