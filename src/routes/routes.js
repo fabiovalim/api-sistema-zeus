@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const UserController = require('../apps/controllers/UserController');
 const BudgetController = require('../apps/controllers/BudgetController');
+const AdminController = require('../apps/controllers/AdminController');
 const schemaValidator = require('../apps/middlewares/schemaValidator');
 const UserSchema = require('../schema/create.user.schema.json');
 const BudgetSchema = require('../schema/create.budget.schema.json');
@@ -18,5 +19,8 @@ routes.get('/budgets/:id', BudgetController.getBudget);
 routes.post('/budgets/:id', schemaValidator(BudgetSchema), BudgetController.create);
 routes.put('/budgets/:id', BudgetController.update);
 routes.delete('/budgets/:id', BudgetController.delete);
+
+routes.post('/admins/:id', AdminController.create);
+routes.delete('/admins/:id', AdminController.delete);
 
 module.exports = routes;
