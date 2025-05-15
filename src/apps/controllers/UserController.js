@@ -1,8 +1,24 @@
 const bcryptjs = require('bcryptjs');
 const Users = require('../models/Users');
+const Admins = require('../models/Admins');
 
 class UserController {
     async getUser(req, res) {
+        //==============================================================
+        //                     VERIFY ADMIN
+
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
+        // =============================================================
+
         const user = await Users.findOne({
             where: {
                 id: req.params.id
@@ -21,6 +37,18 @@ class UserController {
     }
 
     async create(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
+        // =============================================================
+
         const verifyUser = await Users.findOne({
             where: {
                 email: req.body.email
@@ -41,6 +69,16 @@ class UserController {
     };
 
     async update(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
         const {
             name,
             entry_date,
@@ -106,6 +144,16 @@ class UserController {
     }
 
     async delete(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
         const userToDelete = await Users.findOne({
             where: {
                 id: req.params.id

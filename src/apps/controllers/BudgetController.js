@@ -2,6 +2,16 @@ const Budgets = require('../models/Budgets');
 
 class BudgetController {
     async getBudget(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
         const budget = await Budgets.findOne({
             where: {
                 id: req.params.id
@@ -20,6 +30,16 @@ class BudgetController {
     }
     
     async create(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
         const {
             name,
             description,
@@ -45,6 +65,16 @@ class BudgetController {
     }
 
     async update(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
         const { id } = req.params;
         const { name, description, estimated_value, predicted_cost, status } = req.body;
 
@@ -85,6 +115,16 @@ class BudgetController {
     }
 
     async delete(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
         const { id } = req.params;
 
         const verifyBudget = await Budgets.findOne({
