@@ -1,4 +1,6 @@
 const Budgets = require('../models/Budgets');
+const Admins = require('../models/Admins');
+const Users = require('../models/Users');
 
 class BudgetController {
     async getBudget(req, res) {
@@ -41,12 +43,23 @@ class BudgetController {
         }
 
         const {
+            user_id,
             name,
             description,
             client,
             estimated_value,
             predicted_cost
         } = req.body;
+
+        const verifyUser = await Users.findOne({
+            where: {
+                id: user_id
+            }
+        });
+
+        if(!verifyUser) {
+            return res.status(400).json({message: 'User not exists...'});
+        };
         
         const newBudget = await Budgets.create({
             name,
@@ -54,7 +67,7 @@ class BudgetController {
             client,
             estimated_value,
             predicted_cost,
-            user_id: req.params.id
+            user_id
         });
 
         if (!newBudget) {
@@ -87,10 +100,6 @@ class BudgetController {
         if(!verifyBudget) {
             return res.status(404).json({ message: 'Budget does not exists...' });
         }
-
-        // if(verifyBudget.author_id != req.userId) { AUTHENTICATION
-        //     return res.status(401).json({ message: `You don't have permission to update this budget...` });
-        // }
 
         await Budgets.update (
             {   
@@ -136,10 +145,6 @@ class BudgetController {
         if(!verifyBudget) {
             return res.status(404).json({ message: 'Budget does not exists...' });
         }
-
-        // if(verifyBudget.author_id != req.userId) { // AUTHENTICATION
-        //     return res.status(401).json({ message: `You don't have permission to delete this Budget...` });
-        // }
 
         const deletedBudget = await Budgets.destroy({
             where: {

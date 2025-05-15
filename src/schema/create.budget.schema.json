@@ -3,6 +3,9 @@
     "title": "CreateBudgetSchema",
     "type": "object",
     "properties": {
+        "user_id": {
+            "type": "string"
+        },
         "name": {
             "type": "string"
         },
@@ -19,5 +22,5 @@
             "type": "string"
         }
     },
-    "required": ["name","description","client","estimated_value","predicted_cost"]
+    "required": ["user_id","name","description","client","estimated_value","predicted_cost"]
 }
