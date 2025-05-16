@@ -123,6 +123,42 @@ class PenaltyController {
 
         return res.status(200).json({ message: 'Penalty updated!' });
     }
+
+    async delete(req, res) {
+        const verifyAdmin = await Admins.findOne({
+            where: {
+                user_id: req.userId
+            }
+        });
+
+        if(!verifyAdmin) {
+            return res.status(401).json({ message: `You don't have permission...` });
+        }
+
+        const { id } = req.params;
+
+        const verifyPenalty = await Penalties.findOne({
+            where: {
+                id
+            }
+        });
+
+        if(!verifyPenalty) {
+            return res.status(404).json({ message: 'Penalty does not exists...' });
+        }
+
+        const deletedPenalty = await Penalties.destroy({
+            where: {
+                id
+            }
+        });
+
+        if(!deletedPenalty) {
+            return res.status(400).json({ message: 'Failed to delete this Penalty...' });
+        }
+
+        return res.status(200).json({ message: 'Penalty deleted...' });
+    }
 };
 
 module.exports = new PenaltyController();
