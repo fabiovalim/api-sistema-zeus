@@ -32,6 +32,7 @@ routes.delete('/budgets/:id', BudgetController.delete);
 
 routes.get('/penalties/:id', PenaltyController.getPenalty);
 routes.post('/penalties', schemaValidator(PenaltySchema), PenaltyController.create);
+routes.put('/penalties/:id', PenaltyController.update);
 
 routes.post('/admins/:id', AdminController.create);
 routes.delete('/admins/:id', AdminController.delete);
