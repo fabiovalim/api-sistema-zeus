@@ -5,7 +5,7 @@ const verifyJwt = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if(!authHeader) {
-        return res.status(401).json({ message: 'Unset token...' })
+        return res.status(401).json({ message: 'You are not logged in...' })
     }
 
     try {
