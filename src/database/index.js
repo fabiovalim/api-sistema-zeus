@@ -3,8 +3,9 @@ const databaseConfig = require('../config/db');
 const Users = require('../apps/models/Users');
 const Budgets = require('../apps/models/Budgets');
 const Admins = require('../apps/models/Admins');
+const Penalties = require('../apps/models/Penalties');
 
-const models = [Users, Budgets, Admins];
+const models = [Users, Budgets, Admins, Penalties];
 
 class Database {
     constructor() {
