@@ -83,7 +83,7 @@ const verifyAdmin = await Admins.findOne({
 
 ## 🧠 Diagrama 
 
-![Diagrama ER](./image.png)
+![Diagrama ER](./Captura%20de%20tela%202025-05-15%20223409.png)
 > Imagem gerada pelo MySql workbench.
 ---
 
