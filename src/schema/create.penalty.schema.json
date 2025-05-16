@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "CreateBudgetSchema",
+    "type": "object",
+    "properties": {
+        "user_id": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "level": {
+            "type": "string"
+        }
+    },
+    "required": ["user_id", "description", "level"]
+}
