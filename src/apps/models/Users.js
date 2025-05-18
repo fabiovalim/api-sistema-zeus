@@ -13,6 +13,7 @@ class Users extends Model {
                 phone:  Sequelize.STRING,
                 gender: Sequelize.STRING,
                 skill:  Sequelize.STRING,
+                entry_date: Sequelize.DATE,
                 password_hash: Sequelize.STRING,
                 password: Sequelize.VIRTUAL
             },  
