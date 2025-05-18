@@ -48,7 +48,8 @@ class BudgetController {
             description,
             client,
             estimated_value,
-            predicted_cost
+            predicted_cost,
+            status
         } = req.body;
 
         const verifyUser = await Users.findOne({
@@ -67,6 +68,7 @@ class BudgetController {
             client,
             estimated_value,
             predicted_cost,
+            status,
             user_id
         });
 
