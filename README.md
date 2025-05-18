@@ -139,17 +139,20 @@ npm install
 - Crie um arquivo **.env** na raiz do projeto e adicione as seguintes variáveis:
 
 ```bash
+# dados de exemplo
+
 PORT=3000                            # Porta onde o servidor Node.js será executado
 
 DIALECT=mysql                        # Dialeto do banco de dados (MySQL no Sequelize)
 HOST=localhost                       # Endereço do host do banco de dados
 DB_USERNAME=root                     # Nome de usuário do banco de dados
-PASSWORD=10203040                    # Senha do banco de dados
+PASSWORD=123456                      # Senha do banco de dados
 DATABASE=zeus                        # Nome do banco de dados utilizado
 DB_PORT=3306                         # Porta padrão de conexão com o MySQL
 
-HASH_BCRYPT=dcee57ceb0b251443b2b1c74f9f64187   # Salt hash ou string usada como base para geração de hash com bcryptjs
-EXPIRE_IN=1d                         # Tempo de expiração do token JWT (1 dia)
+# Salt hash ou string usada como base para geração de hash com bcryptjs
+HASH_BCRYPT=dcee57ceb0b251443b2b1c74f9f64187   
+EXPIRE_IN=1d
 
 SECRET_CRYPTO=0018236f623c1f981361bdd28be9c729 # Chave secreta usada para operações de criptografia
 ```
