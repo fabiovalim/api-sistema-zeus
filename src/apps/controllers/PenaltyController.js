@@ -14,29 +14,15 @@ class PenaltyController {
             return res.status(401).json({ message: `You don't have permission...` });
         }
 
-        const penalty = await Penalties.findOne({
-            where: {
-                id: req.params.id
-            }
+        const penalty = await Penalties.findAll({
+            attributes: ['user_id','description','level']
         });
 
-        if(!penalty) {
-            return res.status(400).json({ message: 'Penalty not exists...' });
+        if (penalty.length === 0) {
+            return res.status(404).json({ message: 'No penalties found...' });
         }
 
-        const user = await Users.findOne({
-            where: {
-                id: penalty.user_id 
-            }
-        });
-
-        const { name } = user;
-
-        const { description, level } = penalty;
-
-        return res.status(200).json({
-            name, description, level
-        });
+        return res.status(200).json(penalty);
     }
 
     async create(req, res) {
