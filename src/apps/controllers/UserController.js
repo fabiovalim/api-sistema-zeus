@@ -19,21 +19,15 @@ class UserController {
 
         // =============================================================
 
-        const user = await Users.findOne({
-            where: {
-                id: req.params.id
-            }
+        const users = await Users.findAll({
+            attributes: ['name', 'email', 'phone', 'position']
         });
 
-        if(!user) {
-            return res.status(400).json({ message: 'User not exists...' });
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'No users found.' });
         }
 
-        const { name, email, position, phone } = user;
-
-        return res.status(200).json({
-            name, email, phone, position 
-        });
+        return res.status(200).json(users);
     }
 
     async create(req, res) {
