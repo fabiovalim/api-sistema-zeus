@@ -14,21 +14,15 @@ class BudgetController {
             return res.status(401).json({ message: `You don't have permission...` });
         }
 
-        const budget = await Budgets.findOne({
-            where: {
-                id: req.params.id
-            }
+        const budget = await Budgets.findAll({
+            attributes: ['user_id', 'name', 'description', 'client', 'status']
         });
 
-        if(!budget) {
-            return res.status(400).json({ message: 'Budget not exists...' });
+        if (budget.length === 0) {
+            return res.status(404).json({ message: 'No budgets found...' });
         }
 
-        const { name, description, user_id, client, estimated_value, predicted_cost, status } = budget;
-
-        return res.status(200).json({
-            user_id, name, description, client, estimated_value, predicted_cost, status
-        });
+        return res.status(200).json(budget);
     }
     
     async create(req, res) {
